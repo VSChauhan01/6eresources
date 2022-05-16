@@ -25,7 +25,9 @@ SECRET_KEY = 'd2&1!86r4dj@#a*e!&4h1kzn^=**=%*zhz6*ma*&mn@o9=*xv='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.0.111'
+]
 
 
 # Application definition
@@ -38,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,10 +52,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'wateresource.urls'
-
+REST_FRAMEWORK = { 'DEFAULT_PERMISSION_CLASSES' : [   'rest_framework.permissions.AllowAny' ]}
+CORS_ORIGIN_ALLOW_ALL = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -75,10 +81,17 @@ WSGI_APPLICATION = 'wateresource.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+     'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': '6eresource',  
+        'USER': 'root',  
+        'PASSWORD': '',  
+        'HOST': '127.0.0.1',  
+        'PORT': '3306',  
+        'OPTIONS': {  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+        }  
+    }  
 }
 
 
